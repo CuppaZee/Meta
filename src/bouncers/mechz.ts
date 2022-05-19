@@ -250,7 +250,7 @@ export const emperorP3n9u1nFrozen = new BrokenMechType(
   3720
 ).scattererScatters(kingM4ck3rel);
 
-export const f0ssil = new MechScatterType("F0SSiL",3744).standalone();
+export const f0ssil = new MechScatterType("F0SSiL", 3744).standalone();
 export const r3x0skeleton = new MechType("R3X-0-Skeleton",3742).scattererScatters(f0ssil);
 export const shippedR3x0skeleton = new BrokenMechType(
   "Shipped R3X-0-Skeleton",
