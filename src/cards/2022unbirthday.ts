@@ -30,3 +30,4 @@ export const unbirthdayPartyInvitationCard = new Year2022UnBirthdayMailboxCardTy
   3864
 );
 export const teaTimeCard = new Year2022UnBirthdayMailboxCardType("Tea Time Card", 3865);
+export const cheshireSmileCard = new Year2022UnBirthdayMailboxCardType("Cheshire Smile Card", 3866);
