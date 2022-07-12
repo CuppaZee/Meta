@@ -77,5 +77,5 @@ export const mapleChestSet = new GamingType("Maple Chess Set", 3281)
   .virtual()
   .scattererScatters(chessPieces);
 export const walnutChestSet = new GamingType("Walnut Chess Set", 3274)
-  .virtual()
+  .physical()
   .scattererScatters(chessPieces);
