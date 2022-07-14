@@ -289,4 +289,4 @@ export const wiltedFl0w3r = new BrokenMechType("Wilted FL0W3R", 3795).scattererS
 export const bl0ss0m = new MechType("BL0SS0M", 3800).scattererScatters(pinkPetal, purplePetal);
 export const sun = new MechType("SUN", 3804).scattererScatters(pinkPetal, purplePetal);
 export const r053 = new MechType("R053", 3802).scattererScatters(pinkPetal, purplePetal);
-export const paintedR053 = new MechType("Painted R053").scattererScatters(pinkPetal, purplePetal);
+export const paintedR053 = new MechType("Painted R053",3806).scattererScatters(pinkPetal, purplePetal);
