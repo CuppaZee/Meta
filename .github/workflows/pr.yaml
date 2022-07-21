@@ -36,7 +36,6 @@ jobs:
           BUILD="${BUILD//$'\n'/'%0A'}"
           BUILD="${BUILD//$'\r'/'%0D'}"
           echo ::set-output name=output::$BUILD
-          echo $BUILD > $GITHUB_STEP_SUMMARY
       - name: Run build & set outputs
         id: compare
         continue-on-error: true
@@ -49,7 +48,6 @@ jobs:
           COMPARE="${COMPARE//$'\n'/'%0A'}"
           COMPARE="${COMPARE//$'\r'/'%0D'}"
           echo ::set-output name=output::$COMPARE
-          echo $COMPARE > $GITHUB_STEP_SUMMARY
       - name: Run check-images
         id: chkimg
         continue-on-error: true
@@ -62,7 +60,6 @@ jobs:
           CHKIMG="${CHKIMG//$'\n'/'%0A'}"
           CHKIMG="${CHKIMG//$'\r'/'%0D'}"
           echo ::set-output name=output::$CHKIMG
-          echo $CHKIMG > $GITHUB_STEP_SUMMARY
 
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
