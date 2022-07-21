@@ -42,17 +42,11 @@ UnBirthdayMailboxCard {
     Bread-and-Butterfly Card
 ]
 
-UnBirthdayMailboxScatter {
-    name = Drink Me Potion
-    id = 3896
-}
-
-UnBirthdayMailboxScatter {
-    name = Eat Me Cookie
-    id = 3897
-}
-
-UnBirthdayMailboxScatter {
-    name = Bread-and-Butterfly
-    id = 3898
-}
+UnBirthdayMailboxScatter { 
+    name = .1
+    id = $(.2 || 3896 + .index)
+} for [
+    Drink Me Potion
+    Eat Me Cookie
+    Bread-and-Butterfly
+]
