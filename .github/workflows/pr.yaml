@@ -28,7 +28,9 @@ jobs:
         id: build
         continue-on-error: true
         run: |
+          set +e
           pnpm run build > build.txt
+          set -e
           BUILD=$(cat build.txt)
           BUILD="${BUILD//'%'/'%25'}"
           BUILD="${BUILD//$'\n'/'%0A'}"
@@ -39,7 +41,9 @@ jobs:
         id: compare
         continue-on-error: true
         run: |
+          set +e
           pnpm run compare > compare.txt
+          set -e
           COMPARE=$(cat compare.txt)
           COMPARE="${COMPARE//'%'/'%25'}"
           COMPARE="${COMPARE//$'\n'/'%0A'}"
@@ -50,7 +54,9 @@ jobs:
         id: chkimg
         continue-on-error: true
         run: |
+          set +e
           pnpm run check-images > chkimg.txt
+          set -e
           CHKIMG=$(cat chkimg.txt)
           CHKIMG="${CHKIMG//'%'/'%25'}"
           CHKIMG="${CHKIMG//$'\n'/'%0A'}"
