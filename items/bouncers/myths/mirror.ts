@@ -12,7 +12,7 @@ import {
 import { tulipSeed, roseSeed, lilySeed, carnationSeed } from "../../evolutions/nature";
 import { skyland, treehouse } from "../../normal/destination";
 import { amethyst, onyx } from "../../normal/jewels";
-import { greenie, shamrock } from "../../normal/misc";
+import { greenie, shamrock, virtualShamrock } from "../../normal/misc";
 import {
   mystery,
   earthMystery,
@@ -137,12 +137,26 @@ export const ghostOfChristmasFuture = new MirrorMythType("Ghost of Christmas Fut
     type => type.hasTags(TypeTags.VirtualColourBlack),
     type => type.hasTags(TypeTags.VirtualColourBlue)
   );
+export const queenOfHeartsBanshee = new MirrorMythType("Queen of Hearts Banshee", 3906)
+  .addTag(TypeTags.BouncerMythVariant)
+  .addBouncerLandsOn(
+    greenie,
+    shamrock,
+    virtualShamrock,
+    type => [roseSeed.id].includes(type.meta.evolution?.base ?? -1),
+    airMystery,
+    voidMystery,
+    type => type.hasTags(TypeTags.VirtualColourBlack),
+    type => type.hasTags(TypeTags.VirtualColourRed),
+    treehouse,
+    skyland
+  );
 export const bansheeHost = new MirrorMythHostType("Banshee Host", 1828)
   .physical()
-  .addBouncerHostType(banshee, harpyBanshee, witchBanshee, ghostOfChristmasFuture);
+  .addBouncerHostType(banshee, harpyBanshee, witchBanshee, ghostOfChristmasFuture, queenOfHeartsBanshee);
 export const bansheeVirtualHost = new MirrorMythHostType("Banshee Virtual Host", 1829)
   .virtual()
-  .addBouncerHostType(banshee, harpyBanshee, witchBanshee, ghostOfChristmasFuture);
+  .addBouncerHostType(banshee, harpyBanshee, witchBanshee, ghostOfChristmasFuture, queenOfHeartsBanshee);
 
 // Nymph
 export const nymph = new MirrorMythType("Nymph", 2118).addBouncerLandsOn(
