@@ -14,6 +14,7 @@ import {
   iceMystery,
   fireMystery,
 } from "../../normal/mystery";
+import { theHammer } from "../../normal/weapons";
 import { mythsGroup } from "../_index";
 
 export const ClassicalMythGroup = new Group({ name: "Classical Myths" }).addParent(mythsGroup);
@@ -62,12 +63,18 @@ export const krampusFaun = new ClassicalMythType("Krampus Faun", 1998)
 export const farDarrigFaun = new ClassicalMythType("Far Darrig Faun", 3656).addTag(
   TypeTags.BouncerMythVariant
 );
+export const kingOfHeartsFaun = new ClassicalMythType("King of Hearts Faun", 3907)
+  .addTag(TypeTags.BouncerMythVariant)
+  .addBouncerLandsOn(
+    greenie, earthMystery, theHammer, treehouse, skyland,
+    type => type.hasTags(TypeTags.VirtualColourRed),
+  );
 export const faunHost = new ClassicalMythHostType("Faun Host", 854)
   .physical()
-  .addBouncerHostType(faun, centaurFaun, krampusFaun);
+  .addBouncerHostType(faun, centaurFaun, krampusFaun, kingOfHeartsFaun);
 export const faunVirtualHost = new ClassicalMythHostType("Faun Virtual Host", 2000)
   .virtual()
-  .addBouncerHostType(faun, centaurFaun, krampusFaun);
+  .addBouncerHostType(faun, centaurFaun, krampusFaun, kingOfHeartsFaun);
 
 // Hydra
 export const hydra = new ClassicalMythType("Hydra", 953).addBouncerLandsOn(
