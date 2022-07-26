@@ -1,0 +1,26 @@
+Group {
+    name = 2022 Cards
+    parents + Cards
+}
+
+template Year2022Card from Card {
+    groups = 2022 Cards
+    tags + Card2022
+}
+
+Year2022Card {
+    name = .1
+    id = .2
+} for [
+    2022 Event Card, 3552
+    Sham-Rockin Card, 3638
+    Fantastic Father Card, 3667
+    Magnificent Mother Card, 3668
+    Garden Flamingo Card, 3669
+    MunzPak April 2022 Card, 3672
+    MunzPak May 2022 Card, 3714
+    MunzPak June 2022 Card, 3755
+    MunzPak July 2022 Card, 3863
+    Crystal Ball Card, 3235
+    UnBirthday Event Card, 3788
+]

@@ -1,0 +1,45 @@
+Group {
+    name = 2022 V-Mailbox Cards
+    parents + Cards
+}
+
+template VMailCard from Card {
+    groups = 2022 V-Mailbox Cards
+    tags + Card2022VMailbox
+    hidden + Inventory
+}
+
+template VMailboxScatter from Scatter {
+    groups = 2022 V-Mailbox Cards
+    standalone
+}
+
+VMailCard {
+    name = .1
+    id = $(.2 || 3593 + .index)
+} for [
+    V-Mailbox, 3574
+    V-Mail Card
+    Love Bug Card
+    You Give Me Life Card
+    Poke Card
+    Cute Code Card
+    Just My Type Card
+    Strong Connection Card
+    Trash Card
+    Friend Request Card
+    Wink Card
+    Player 2 Card
+    Pixel Heart Card
+    DM Card
+    Heart Eyes Emoji Card
+    You Complete Me Card
+]
+
+VMailboxScatter {
+    name = .1
+    id = $(.2 || 3609 + .index)
+} for [
+    Ms. Munch-Man
+    Pixel Cupid
+]
