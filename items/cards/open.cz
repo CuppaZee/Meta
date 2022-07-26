@@ -1,0 +1,36 @@
+Group {
+    name = Open Cards
+    parents + Cards
+}
+
+template OpenCard from Card {
+    groups = Open Cards
+    tags + CardOpen
+}
+
+OpenCard {
+    name = .1
+    id = .2
+} for [
+    Get Well Card, 2421
+    Birthday Card, 2420
+    Thank You Card, 2432
+    Howdy Card, 2450
+    Congrats Card, 2495
+    Sorry Card, 2496
+    Sorry Card 1, 2497
+    Sorry Card 2, 2498
+    Sorry Card 3, 2499
+    Summer Card, 2532
+    Winter Card, 2533
+    Event Card, 2542
+    Fall Card, 2602
+    Spring Card, 2601
+    Tech Issues Card, 2622
+    GeoLoggers Reseller Greeting Card, 3011
+    Gold'n Coins Reseller Greeting Card, 3012
+    NEGS Reseller Greeting Card, 3013
+    SCGS Reseller Greeting Card, 3014
+    Road Warriors Card, 3518
+    Adventure Seekers Card, 3519
+]
