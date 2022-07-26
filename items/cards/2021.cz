@@ -1,0 +1,79 @@
+Group {
+    name = 2021 Cards
+    parents + Cards
+}
+
+template Year2021Card from Card {
+    groups = 2021 Cards
+    tags + Card2021
+}
+
+template Year2021Scatter from Scatter {
+    groups = 2021 Cards
+    hidden + Bouncers
+    standalone
+}
+
+Year2021Card {
+    name = .1
+    id = .2
+} for [
+    Motivational Message Card 1, 2830
+    Motivational Message Card 2, 2831
+    Motivational Message Card 3, 2832
+    Motivational Message Card 4, 2833
+    March into May Event Card, 2936
+    Green Cheers Card, 2944
+    Kiss Me I'm Irish Card, 2945
+    Lucky Charm Card, 2946
+    Easter Basket Card, 2982
+    Pink Easter Egg Card, 2985
+    Blue Easter Egg Card, 2984
+    Green Easter Egg Card, 2983
+    Easter Bunny Card, 2986
+    Easter Chick Card, 2987
+    Thinking of You Card, 3000
+    Knock Knock Joke Card, 3001
+    It's 5 O' Clock Somewhere Card, 3003
+    Wish I Was Here Card, 3002
+    Life Is Good Card, 3004
+    Stay Home 2021 Card, 3009
+    Picture Perfect Card, 3010
+    Good Luck Card, 3231
+    Lucky Rabbit's Foot Card, 3232
+    Break a Leg Card, 3234
+    Bad Luck Card, 3233
+    Halloween 2021 Card, 3304
+    Sweet Treats Card, 3305
+    Trick or Treat Card, 3326
+    Frankenstein Card, 3330
+    Mummy Card, 3331
+    Vampire Card, 3332
+    Werewolf Card, 3333
+    Short Story Card, 3403
+    Song about You Card, 3404
+    Thankful for You Card, 3410
+    Letter to Santa Card, 3411
+    Christmas Event 2021 Card, 3402
+    Christmas Cracker Card, 3454
+    1st Day of Christmas Card, 3531
+    2nd Day of Christmas Card, 3532
+    3rd Day of Christmas Card, 3533
+    4th Day of Christmas Card, 3534
+    5th Day of Christmas Card, 3535
+    6th Day of Christmas Card, 3536
+    7th Day of Christmas Card, 3537
+    8th Day of Christmas Card, 3538
+    9th Day of Christmas Card, 3539
+    10th Day of Christmas Card, 3540
+    11th Day of Christmas Card, 3541
+    12th Day of Christmas Card, 3542
+]
+
+Year2021Scatter {
+    name = .1
+    id = $(.2 || 3328 + .index)
+} for [
+    Treat
+    Trick
+]
