@@ -62,9 +62,11 @@ MechWithoutBroken {
     scatterId = 3912
 }
 
-MechWithoutBroken {
+Mech {
     name = Butt3rFry
     id = 3910
+    brokenId = 3911
+    brokenName = Hibernating Butt3rFry
     scatterName = Sm0ke Song
     scatterId = 3913
 }
