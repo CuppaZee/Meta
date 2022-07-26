@@ -1,0 +1,32 @@
+Group {
+    name = 2020 Cards
+    parents + Cards
+}
+
+template Year2020Card from Card {
+    groups = 2020 Cards
+    tags + Card2020
+}
+
+Year2020Card {
+    name = .1
+    id = .2
+} for [
+    Earth Day Card 1, 2422
+    Earth Day Card 2, 2423
+    Earth Day Card 3, 2424
+    Stay Home Card, 2425
+    Hammercorn Card, 2430
+    Clan War Card, 2431
+    World Laughter Day Card, 2433
+    Safe Travels Card, 2451
+    May Flowers Card, 2500
+    World Ocean Day Card, 2529
+    Couch Potato Card, 2571
+    FrEEZ Flag Card, 2572
+    Camp Munzee Card, 2581
+    Self Destruct Card, 2606
+    Halloween Card, 2623
+    Kill Them with Kindness Card, 2691
+    Christmas Event 2020 Card, 2624
+]
