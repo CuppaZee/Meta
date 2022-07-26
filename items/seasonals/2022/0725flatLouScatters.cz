@@ -1,0 +1,21 @@
+SeasonalGroup {
+    name = Flat Lou Scatters for Tour de France
+    year = 2022
+    start = 2022-07-25T12:00:00-05:00
+    end = 2022-07-31T23:59:00-05:00
+}
+template FlatLouScatters from Scatter {
+    groups = Flat Lou Scatters for Tour de France
+}
+
+FlatLouScatters {
+    name = .1
+    id = $(.2 || 3921 + .index)
+    state = Virtual
+    tags + ScatterStandalone
+} for [
+    Grapes
+    Wedge of Cheese
+    Baguette
+    Champagne Bottle
+]
