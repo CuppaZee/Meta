@@ -21,16 +21,36 @@ OpenCard {
     Sorry Card 1, 2497
     Sorry Card 2, 2498
     Sorry Card 3, 2499
-    Summer Card, 2532
-    Winter Card, 2533
+    Summer Card, 2532 {
+        icons = summercard, summer_card
+    }
+    Winter Card, 2533 {
+        icons = wintercard, winter_card
+    }
     Event Card, 2542
-    Fall Card, 2602
-    Spring Card, 2601
+    Fall Card, 2602 {
+        icons = fallcard, fall_card
+    }
+    Spring Card, 2601 {
+        icons = springcard, spring_card
+    }
     Tech Issues Card, 2622
-    GeoLoggers Reseller Greeting Card, 3011
-    Gold'n Coins Reseller Greeting Card, 3012
-    NEGS Reseller Greeting Card, 3013
-    SCGS Reseller Greeting Card, 3014
+    GeoLoggers Reseller Card, 3011 {
+        icons = geologgersresellergreetingcard
+        tags + TypeReseller
+    }
+    Gold'n Coins Reseller Card, 3012 {
+        icons = gold'ncoinsresellergreetingcard, goldncoinsresellergreetingcard
+        tags + TypeReseller
+    }
+    NEGS Reseller Card, 3013 {
+        icons = negsresellergreetingcard
+        tags + TypeReseller
+    }
+    SCGS Reseller Card, 3014 {
+        icons = scgsresellergreetingcard
+        tags + TypeReseller
+    }
     Road Warriors Card, 3518
     Adventure Seekers Card, 3519
 ]
