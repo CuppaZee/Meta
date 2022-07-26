@@ -1,0 +1,53 @@
+Group {
+    name = 2021 BCCC Cards
+    parents + Cards
+}
+
+template 2021BCCCCard from Card {
+    groups = 2021 BCCC Cards
+    tags + Card2021BCCC
+    hidden + Inventory
+}
+
+template 2021BCCCScatter from Scatter {
+    groups = 2021 BCCC Cards
+    standalone
+}
+
+2021BCCCCard {
+    name = .1
+    id = $(.2 || 3129 + .index)
+} for [
+    10th Birthday Mailbox, 2651
+    Awards Show Invitation Card
+    Tin Foil Hat Card
+    Swag Bag Card
+    Commemorative Napkin Card
+    Sweet Ride Card
+    Green Carpet Card
+    Pegasus Piñata Card
+    Raffle Ticket Card
+    Wrong Winner Card
+    Replacement Shoe Card
+    Suit Card
+    Dress Card
+    Gold-Plated Wrench Card
+    Unicorn Cupcake Card
+    Bouncer Card
+    Cutlery Card
+    Microphone Card
+    Orchestra Card
+    Teleprompter Typo Card
+    Center Piece Card
+    Fine China Card
+    Paparazzi Card
+    Confetti Card
+    Camera Card
+    Trophy Card
+    Commercial Break Card
+    Show Host Card
+    Seating Arrangement Card
+    Toast Card
+    Winners Bouquet Card
+    1000 Hours Card
+]
