@@ -8,7 +8,6 @@ SeasonalGroup {
 Scatter {
     name = .1
     id = $(.2 || 3921 + .index)
-    groups = Flat Lou Scatters for Tour de France
     state = Virtual
     tags + ScatterStandalone
 } for [
