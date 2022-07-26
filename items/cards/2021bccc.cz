@@ -25,7 +25,9 @@ template 2021BCCCScatter from Scatter {
     Commemorative Napkin Card
     Sweet Ride Card
     Green Carpet Card
-    Pegasus Piñata Card
+    Pegasus Piñata Card {
+        icons = pegasuspinatacard, pegasuspiñatacard
+    }
     Raffle Ticket Card
     Wrong Winner Card
     Replacement Shoe Card
