@@ -4,13 +4,11 @@ SeasonalGroup {
     start = 2022-07-25T12:00:00-05:00
     end = 2022-07-31T23:59:00-05:00
 }
-template FlatLouScatters from Scatter {
-    groups = Flat Lou Scatters for Tour de France
-}
 
-FlatLouScatters {
+Scatter {
     name = .1
     id = $(.2 || 3921 + .index)
+    groups = Flat Lou Scatters for Tour de France
     state = Virtual
     tags + ScatterStandalone
 } for [
