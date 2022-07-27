@@ -54,8 +54,10 @@ Event {
     Springtime at the Zoo 2017, 882
     Stuttgart - Teatime in Hohenheim, 883
     Easter Troll Hunt, 884
-    (MA) Hoppy Easter at Indian Hill, 885
-    DK: Påske i Aarhus, 886
+    \(MA) Hoppy Easter at Indian Hill, 885
+    DK: Påske i Aarhus, 886 {
+        icons = dk:påskeiaarhus, ck:påskeiaarhus
+    }
     NJ Bilby Event, 887
     Hopping Time In The Carolinas, 888
     Adelaide Easter Event 2017, 889
@@ -83,9 +85,9 @@ Event {
     Movies Monsters and 1 Munzee, 986
     6 Millionth Munzee Special, 987
     Rackheath's Pinwheel Tea Party, 988
-    (NC) Challenges in the Pines - Event 1, 989
-    (NC) Challenges in the Pines - Event 2, 990
-    (NC) Challenges in the Pines - Event 3, 991
+    \(NC) Challenges in the Pines - Event 1, 989
+    \(NC) Challenges in the Pines - Event 2, 990
+    \(NC) Challenges in the Pines - Event 3, 991
     A Slinky Easter 2017, 992
     After Easter Meet and Greet, 993
     Easter in Shepparton, 994
@@ -185,7 +187,7 @@ Event {
     Greer Hunt for the Ace - A Small Town Event, 1112
     Greer Munzee Hunt II, 1113
     Solskinsøens Summer-Event, 1114
-    (VA) Hampton Roads Encore Munzee Event, 1116
+    \(VA) Hampton Roads Encore Munzee Event, 1116
     15th Geocaching Hampton Roads Picnic & Munz, 1117
     Girl Scout Get Fit Trail Kickoff, 1119
     Get Fit Trail Cooldown, 1120

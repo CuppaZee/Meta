@@ -1,0 +1,46 @@
+Group {
+    name = 2021 VCCC Cards
+    parents + Cards
+}
+
+template 2021VCCCCard from Card {
+    groups = 2021 VCCC Cards
+    tags + Card2021VCCC
+    hidden + Inventory
+}
+
+template 2021VCCCScatter from Scatter {
+    groups = 2021 VCCC Cards
+    standalone
+}
+
+2021VCCCCard {
+    name = .1
+    id = $(.2 || 2833 + .index)
+} for [
+    Valentines Mailbox, 2650
+    Valentine Card
+    Cherub Card
+    Teddy Bear Card
+    Heart Shaped Box Card
+    Chocolate Card
+    Zeecret Admirer Card
+    High Five Card
+    Rose Card
+    Group Hug Card
+    Bandaidz Card
+    BFF Card
+    Diamond Ring Card
+    Kiss Card
+    Soulmate Card
+]
+
+2021VCCCScatter {
+    name = .1
+    id = .2
+} for [
+    Assorted Chocolate, 2869
+    Chocolate Covered Cherry, 2871
+    Mythical Bandaidz, 2872
+    Rainbow Mythical Bandaidz, 2874
+]

@@ -12,12 +12,16 @@ type BuilderItem = {
   type: string;
   properties: Property[];
   for?: For[];
+  if?: Expression;
 };
 
 type TemplateItem = {
   item: "template";
   type: string;
+  // TODO: Handle explicit parameters
+  params: string[];
   items: BuilderItem[];
+  scope?: string;
 };
 
 type Item = BuilderItem | TemplateItem;
@@ -35,12 +39,29 @@ export enum Operation {
 
 export interface Property {
   key: string;
-  value: (ExpressionOrString[] | DotReferenceExpression | ReferenceExpression)[];
+  value: (
+    | ExpressionOrString[]
+    | CZExpressionFunction
+    | DotReferenceExpression
+    | ReferenceExpression
+  )[];
   operation: Operation;
 }
 
 export interface OrExpression {
   type: "or";
+  left: Expression;
+  right: Expression;
+}
+
+export interface AndExpression {
+  type: "and";
+  left: Expression;
+  right: Expression;
+}
+
+export interface ComparisonExpression {
+  type: "comparison";
   left: Expression;
   right: Expression;
 }
@@ -57,6 +78,11 @@ export interface NumberExpression {
   value: string;
 }
 
+export interface StringExpression {
+  type: "string";
+  value: string;
+}
+
 export interface ReferenceExpression {
   type: "reference";
   value: string;
@@ -69,26 +95,58 @@ export interface DotReferenceExpression {
 
 export type Expression =
   | OrExpression
+  | AndExpression
+  | ComparisonExpression
   | CalculationExpression
   | NumberExpression
+  | StringExpression
   | ReferenceExpression
   | DotReferenceExpression;
 
+export interface CZExpressionFunction {
+  type: "expression_function";
+  expression: Expression;
+}
+
+export type ExpressionFunctionOrString = CZExpressionFunction | string;
+
 export type ExpressionOrString = Expression | string;
 
-class CZFileParser {
-  private fileName: string;
+abstract class CZScope {
+  protected abstract ancestors: CZScope[];
+  protected abstract rootScope: CZScope;
+
+  templates = new Map<string, TemplateItem>();
+
+  get allTemplates(): Map<string, TemplateItem> {
+    const templates = new Map<string, TemplateItem>();
+    for (const scope of [this, ...this.ancestors]) {
+      for (const [key, value] of scope.templates) {
+        if (!templates.has(key)) templates.set(key, value);
+      }
+    }
+    return templates;
+  }
+}
+
+class CZFileParser extends CZScope {
+  fileName: string;
   private lastGroup: Group | null = null;
   private database: Database;
 
-  constructor(fileName: string, database: Database) {
+  ancestors: CZScope[];
+  rootScope: CZScope;
+
+  constructor(root: CZParser, fileName: string, database: Database) {
+    super();
+    this.ancestors = [root];
+    this.rootScope = root;
     this.fileName = fileName;
     this.database = database;
   }
 
   runBaseTemplate(properties: CZPropertySet) {
-    const id = properties.get("id").at(-1);
-    const type = new Type(properties.get("name").at(-1)!, id ? Number(id) : undefined);
+    const type = new Type(properties.get("name").requiredString, properties.get("id").number);
 
     if (properties.properties.some(i => i.exclude.length > 0)) {
       throw new Error("Remove found in Base template");
@@ -100,7 +158,7 @@ class CZFileParser {
           break;
         case "tags":
           type.setTags(
-            property.include.map(i => {
+            property.strings.map(i => {
               const tag = (TypeTags as unknown as Record<string, TypeTags>)[i];
               if (tag === undefined) {
                 throw new Error(`Unknown tag ${i}`);
@@ -111,7 +169,7 @@ class CZFileParser {
           break;
         case "hidden":
           type.setHidden(
-            property.include.map(i => {
+            property.strings.map(i => {
               const hiddenTag = (TypeHidden as unknown as Record<string, TypeHidden>)[i];
               if (hiddenTag === undefined) {
                 throw new Error(`Unknown hidden tag ${i}`);
@@ -125,7 +183,7 @@ class CZFileParser {
             throw new Error("Multiple state found in Base template");
           }
           type.setState(
-            property.include.map(i => {
+            property.strings.map(i => {
               const stateTag = (TypeState as unknown as Record<string, TypeState>)[i];
               if (stateTag === undefined) {
                 throw new Error(`Unknown state tag ${i}`);
@@ -147,10 +205,16 @@ class CZFileParser {
           type.setState(TypeState.Virtual);
           break;
         case "icons":
-          property.excludeAll ? type.setIcons(property.include) : type.addIcons(property.include);
+          property.excludeAll ? type.setIcons(property.strings) : type.addIcons(property.strings);
           break;
         case "humanId":
           type.setHumanId(property.requiredString);
+          break;
+        case "bouncer.lands_on":
+          type.setBouncerLandsOn(property.references);
+          break;
+        case "scatterer.scatters":
+          type.scattererScatters(property.references);
           break;
         case "custom:useVirtualIcon":
           type.setIcon(type.name.toLowerCase().replace(/\s/g, "_"));
@@ -159,7 +223,7 @@ class CZFileParser {
           throw new Error(`Unknown Base property ${property.key}`);
       }
     }
-    if (this.lastGroup && type.refed_groups.length === 0) {
+    if (this.lastGroup && type.groups.length === 0) {
       type.addGroup(this.lastGroup);
     }
     this.database.types.add(type);
@@ -168,8 +232,8 @@ class CZFileParser {
 
   runGroupTemplate(properties: CZPropertySet) {
     const group = new Group({
-      name: properties.get("name").at(-1)!,
-      human_id: properties.get("humanId")?.at(-1),
+      name: properties.get("name").requiredString,
+      human_id: properties.get("humanId").string,
     });
     if (properties.properties.some(i => i.exclude.length > 0)) {
       throw new Error("Remove found in Group template");
@@ -200,13 +264,21 @@ class CZFileParser {
   }
 }
 
-export class CZParser {
+export class CZParser extends CZScope {
   private grammarInstance = nearley.Grammar.fromCompiled(grammar);
 
-  private templates = new Map<string, TemplateItem>();
-  private builders = new Map<string, BuilderItem[]>();
+  ancestors: CZScope[];
+  rootScope: CZScope;
 
-  constructor(files: string[]) {
+  builders = new Map<string, BuilderItem[]>();
+
+  private fileParsers = new Map<string, CZFileParser>();
+
+  constructor(files: string[], database: Database) {
+    super();
+    this.ancestors = [];
+    this.rootScope = this;
+
     for (const file of files) {
       const parser = new nearley.Parser(this.grammarInstance);
       parser.feed(fs.readFileSync(file, "utf8"));
@@ -219,11 +291,18 @@ export class CZParser {
       const items: Item[] = parser.results[0];
       const builderItems: BuilderItem[] = [];
 
+      const fileParser = new CZFileParser(this, file, database);
+      this.fileParsers.set(file, fileParser);
+
       for (const item of items) {
         if (item.item === "builder") {
           builderItems.push(item);
         } else if (item.item === "template") {
-          this.templates.set(item.type, item);
+          if (item.scope === "global") {
+            this.templates.set(item.type, item);
+          } else {
+            fileParser.templates.set(item.type, item);
+          }
         }
       }
 
@@ -231,12 +310,12 @@ export class CZParser {
     }
   }
 
-  runFileBuilders(file: string, database: Database) {
+  runFileBuilders(file: string) {
     const builderItems = this.builders.get(file);
-    if (!builderItems) {
+    const fileParser = this.fileParsers.get(file);
+    if (!builderItems || !fileParser) {
       throw new Error(`CZ File has not been loaded: ${file}`);
     }
-    const fileParser = new CZFileParser(file, database);
     for (const builderItem of builderItems) {
       this.runBuilder(builderItem, fileParser);
     }
@@ -306,14 +385,21 @@ export class CZParser {
       ](properties);
       return;
     }
-    const template = this.templates.get(templateName);
+    const template = fileParser.allTemplates.get(templateName);
     if (!template) {
       throw new Error(`Template ${templateName} not found`);
     }
     for (const item of template.items) {
       const itemPropertiesList = this.flattenProperties(item, properties);
       for (const itemProperties of itemPropertiesList) {
-        this.runTemplate(item.type, itemProperties, fileParser);
+        if (!item.if) {
+          this.runTemplate(item.type, itemProperties, fileParser);
+        } else {
+          const resolvedIf = itemProperties.resolveExpression(item.if, false);
+          if (resolvedIf !== undefined && resolvedIf !== null) {
+            this.runTemplate(item.type, itemProperties, fileParser);
+          }
+        }
       }
     }
   }

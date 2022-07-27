@@ -153,10 +153,22 @@ export const queenOfHeartsBanshee = new MirrorMythType("Queen of Hearts Banshee"
   );
 export const bansheeHost = new MirrorMythHostType("Banshee Host", 1828)
   .physical()
-  .addBouncerHostType(banshee, harpyBanshee, witchBanshee, ghostOfChristmasFuture, queenOfHeartsBanshee);
+  .addBouncerHostType(
+    banshee,
+    harpyBanshee,
+    witchBanshee,
+    ghostOfChristmasFuture,
+    queenOfHeartsBanshee
+  );
 export const bansheeVirtualHost = new MirrorMythHostType("Banshee Virtual Host", 1829)
   .virtual()
-  .addBouncerHostType(banshee, harpyBanshee, witchBanshee, ghostOfChristmasFuture, queenOfHeartsBanshee);
+  .addBouncerHostType(
+    banshee,
+    harpyBanshee,
+    witchBanshee,
+    ghostOfChristmasFuture,
+    queenOfHeartsBanshee
+  );
 
 // Nymph
 export const nymph = new MirrorMythType("Nymph", 2118).addBouncerLandsOn(

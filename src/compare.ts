@@ -43,11 +43,21 @@ function mutateForBetterStringify(
   const newDB = JSON.parse(
     fs.readFileSync(path.resolve(__dirname, "../output/database.json"), "utf8")
   );
-  const oldDB = JSON.parse(
-    await fetch("https://github.com/CuppaZee/Meta/releases/download/prerelease/database.json").then(
-      res => res.text()
-    )
-  );
+  let oldDB = null;
+  for (let i = 0; i < 10; i++) {
+    try {
+      oldDB = JSON.parse(
+        await fetch(
+          "https://github.com/CuppaZee/Meta/releases/download/prerelease/database.json"
+        ).then(res => res.text())
+      );
+      break;
+    } catch (e) {
+      console.log(chalk.red(`Failed to fetch old database, retrying...`));
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+  if (!oldDB) throw new Error("Failed to fetch old database");
 
   const oldTypesName = new Map<number, string>();
   const oldGroupsName = new Map<number, string>();

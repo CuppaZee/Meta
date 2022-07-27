@@ -1,4 +1,4 @@
-template Event from Base {
+global template Event from Base {
     physical
     tags + TypeEvent, TypeEventCustom
     hidden + Deploy, Inventory

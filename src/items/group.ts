@@ -1,7 +1,10 @@
 import { XMLBuilder } from "xmlbuilder2/lib/interfaces";
 import { LegacyAccessory, LegacyCategory } from "./legacy";
 import { createHash } from "node:crypto";
-import { CZReference } from "../czProperties";
+import { CZPropertySet, CZReference } from "../czProperties";
+import { Operation } from "../czParser";
+import chalk from "chalk";
+import { Type } from "./type";
 
 export interface GroupOptions {
   name: string;
@@ -33,10 +36,11 @@ export interface GroupDetails {
 
 export class Group {
   private static i = 0;
-  private internal_id: number = Group.i++;
+  internal_id: number = Group.i++;
 
   static ids = new Set<number>();
   static humanIds = new Set<string>();
+  file?: string;
 
   static generateId(human_id: string) {
     if (this.humanIds.has(human_id)) {
@@ -60,9 +64,12 @@ export class Group {
   icons: string[] = null!;
   name: string;
   human_id: string;
-  private _parents: (Group | CZReference)[] = [];
+  _parents: (Group | CZReference)[] = [];
   get parents() {
-    return this._parents.map(v => this._db.deref(v));
+    return this._parents.map(i => {
+      if (i instanceof Group) return i;
+      throw new Error("References not yet resolved for group");
+    }) as Group[];
   }
 
   seasonal?: GroupSeasonalProperties;
@@ -202,12 +209,33 @@ export class Group {
 
 export class GroupDatabase {
   private data: Group[];
+  private referencesResolved = false;
 
   public deref(group: CZReference | Group): Group {
     if (group instanceof Group) return group;
-    const g = this.data.find(i => i.name === group.value);
-    if (!g) throw new Error(`Group ${group.value} not found`);
-    return g;
+    const g = group
+      .resolve(
+        this.groups.map(
+          group =>
+            new CZPropertySet([
+              {
+                key: "name",
+                value: [[group.name]],
+                operation: Operation.Equals,
+              },
+              {
+                key: "id",
+                value: [[group.id.toString()]],
+                operation: Operation.Equals,
+              },
+            ])
+        ),
+        "name"
+      )
+      .map(i => i.get("id").requiredNumbers)
+      .flat();
+    if (g.length !== 1) throw new Error(`Could not resolve group ${group}`);
+    return this.data.find(i => i.id === g[0])!;
   }
 
   constructor() {
@@ -229,5 +257,66 @@ export class GroupDatabase {
 
   get groups(): Group[] {
     return this.data;
+  }
+
+  private resolveReference(
+    groupProperties: CZPropertySet[],
+    group: Group | Type,
+    ref: CZReference | Group | ((v: Group) => boolean)
+  ): Group[] {
+    if (ref instanceof Group) return [ref];
+    if (ref instanceof CZReference) {
+      const resolvedRef = ref.resolve(groupProperties, "name");
+      return resolvedRef
+        .map(i => i.get("id").requiredNumbers)
+        .flat()
+        .map(i => this.groups.find(g => g.id === i)!);
+    }
+    const groups = this.groups.filter(ref);
+    if (groups.length === 0)
+      console.warn(
+        chalk.gray`[{yellow WARN}] ${
+          group.file
+        }: Could not resolve reference ${ref.toString()} for ${group.name}`
+      );
+    return groups;
+  }
+
+  public publicResolveReference(
+    group: Group | Type,
+    ref: CZReference | Group | ((v: Group) => boolean)
+  ) {
+    if (ref instanceof Group) return [ref];
+    return this.resolveReference(this.getGroupProperties(), group, ref);
+  }
+
+  private getGroupProperties() {
+    return this.groups.map(
+      group =>
+        new CZPropertySet([
+          {
+            key: "name",
+            value: [[group.name]],
+            operation: Operation.Equals,
+          },
+          {
+            key: "id",
+            value: [[group.id.toString()]],
+            operation: Operation.Equals,
+          },
+        ])
+    );
+  }
+
+  public resolveReferences(): void {
+    if (this.referencesResolved) throw new Error("References have already been resolved");
+    this.referencesResolved = true;
+    const groupProperties: CZPropertySet[] = this.getGroupProperties();
+    for (const group of this.groups) {
+      group._parents = group._parents
+        .map(i => this.resolveReference(groupProperties, group, i))
+        .flat();
+      delete group.file;
+    }
   }
 }

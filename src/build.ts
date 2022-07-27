@@ -28,11 +28,14 @@ async function generate(): Promise<Database> {
 
   const database = new Database();
 
-  const czParser = new CZParser(files.filter(i => i.endsWith(".cz")));
+  const czParser = new CZParser(
+    files.filter(i => i.endsWith(".cz")),
+    database
+  );
 
   for (const file of files.slice().reverse()) {
     if (file.endsWith(".cz")) {
-      czParser.runFileBuilders(file, database);
+      czParser.runFileBuilders(file);
     } else if (file.endsWith(".ts")) {
       const imp = await import(file);
       const items: unknown[] = Object.values(imp);
@@ -48,6 +51,7 @@ async function generate(): Promise<Database> {
             checkType(file, type);
           }
         } else if (item instanceof Group) {
+          item.file = file.replace(itemsDir, "");
           database.groups.add(item);
         }
       }
@@ -66,6 +70,7 @@ async function generate(): Promise<Database> {
 
   console.info(chalk.gray`Resolving references...`);
   database.types.resolveReferences();
+  database.groups.resolveReferences();
   console.info(chalk.green`References resolved successfully.`);
 
   console.info(chalk.gray`Generating group icons...`);

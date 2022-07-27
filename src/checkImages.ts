@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import chalk from "chalk";
 
-const ignore = new Set([1506, 886, 683]);
+const ignore = new Set<number>([]);
 
 (async function () {
   const db = JSON.parse(
