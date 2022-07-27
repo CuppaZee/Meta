@@ -6,6 +6,7 @@ Group {
 template Year2020Card from Card {
     groups = 2020 Cards
     tags + Card2020
+    hidden + Inventory
 }
 
 Year2020Card {
@@ -22,9 +23,15 @@ Year2020Card {
     Safe Travels Card, 2451
     May Flowers Card, 2500
     World Ocean Day Card, 2529
-    Couch Potato Card, 2571
-    FrEEZ Flag Card, 2572
-    Camp Munzee Card, 2581
+    Couch Potato Card, 2571 {
+        icons = couch_potato_card, couchpotatocard
+    }
+    FrEEZ Flag Card, 2572 {
+        icons = freezflagcard, freez_flag_card
+    }
+    Camp Munzee Card, 2581 {
+        icons = campmunzeecard, camp_munzee_card
+    }
     Self Destruct Card, 2606
     Halloween Card, 2623
     Kill Them with Kindness Card, 2691

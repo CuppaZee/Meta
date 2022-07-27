@@ -4,7 +4,7 @@ import { treehouse, skyland } from "../../normal/destination";
 import { greenie } from "../../normal/misc";
 import { mystery, earthMystery } from "../../normal/mystery";
 import { briefcase, nightVisionGoggles } from "../../normal/weapons";
-import { selfDestructCard } from "../../cards/2020";
+import { ref } from "../../../src/czProperties";
 
 export const zeecretAgentsGroup = new Year2020SeasonalGroup({
   name: "Zeecret Agents",
@@ -19,7 +19,7 @@ export const pINEAgent = new Year2020SeasonalBouncerType("PINE Agent", 2616)
     mystery,
     earthMystery,
     type => type.hasTags(TypeTags.TypeVirtual),
-    selfDestructCard,
+    ref`Self Destruct Card`,
     briefcase,
     nightVisionGoggles,
     treehouse,
@@ -32,7 +32,7 @@ export const pEARAgent = new Year2020SeasonalBouncerType("PEAR Agent", 2615)
     mystery,
     earthMystery,
     type => type.hasTags(TypeTags.TypeVirtual),
-    selfDestructCard,
+    ref`Self Destruct Card`,
     briefcase,
     nightVisionGoggles,
     treehouse,
@@ -42,7 +42,7 @@ export const virtualPineamite = new Year2020SeasonalBouncerType("Virtual Pineami
   .addGroup(zeecretAgentsGroup)
   .addBouncerLandsOn(
     type => type.hasTags(TypeTags.TypeVirtual),
-    selfDestructCard,
+    ref`Self Destruct Card`,
     nightVisionGoggles
   );
 export const physicalPineamite = new Year2020SeasonalBouncerType("Physical Pineamite", 2613)
@@ -52,7 +52,7 @@ export const virtualPearBomb = new Year2020SeasonalBouncerType("Virtual Pear Bom
   .addGroup(zeecretAgentsGroup)
   .addBouncerLandsOn(
     type => type.hasTags(TypeTags.TypeVirtual),
-    selfDestructCard,
+    ref`Self Destruct Card`,
     nightVisionGoggles
   );
 export const physicalPearBomb = new Year2020SeasonalBouncerType("Physical Pear Bomb", 2611)

@@ -11,6 +11,15 @@ import {
 
 type CZPropertyValue = ExpressionFunctionOrString;
 
+export function ref(value: TemplateStringsArray): CZReference;
+export function ref(value: ExpressionFunctionOrString): CZReference;
+export function ref(value: TemplateStringsArray | ExpressionFunctionOrString): CZReference {
+  if (typeof value === "object" && "length" in value) {
+    return new CZReference(value.toString());
+  }
+  return new CZReference(value);
+}
+
 export class CZReference {
   constructor(private readonly value: ExpressionFunctionOrString) {}
 
