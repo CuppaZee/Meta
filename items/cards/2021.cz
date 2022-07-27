@@ -22,9 +22,13 @@ Year2021Card {
     Motivational Message Card 2, 2831
     Motivational Message Card 3, 2832
     Motivational Message Card 4, 2833
-    March into May Event Card, 2936
+    March into May Event Card, 2936 {
+        icons = march_into_may_event_card, marchintomayeventcard
+    }
     Green Cheers Card, 2944
-    Kiss Me I'm Irish Card, 2945
+    Kiss Me I'm Irish Card, 2945 {
+        icons = kissmei'mirishcard, kiss_me_im_irish_card, kissmeimirishcard
+    }
     Lucky Charm Card, 2946
     Easter Basket Card, 2982
     Pink Easter Egg Card, 2985
@@ -34,18 +38,24 @@ Year2021Card {
     Easter Chick Card, 2987
     Thinking of You Card, 3000
     Knock Knock Joke Card, 3001
-    It's 5 O' Clock Somewhere Card, 3003
+    It's 5 O' Clock Somewhere Card, 3003 {
+        icons = it's5o'clocksomewherecard, its_5_oclock_somewhere_card, its5oclocksomewherecard
+    }
     Wish I Was Here Card, 3002
     Life Is Good Card, 3004
     Stay Home 2021 Card, 3009
     Picture Perfect Card, 3010
     Good Luck Card, 3231
-    Lucky Rabbit's Foot Card, 3232
+    Lucky Rabbit's Foot Card, 3232 {
+        icons = luckyrabbit'sfootcard, lucky_rabbits_foot_card, luckyrabbitsfootcard
+    }
     Break a Leg Card, 3234
     Bad Luck Card, 3233
     Halloween 2021 Card, 3304
     Sweet Treats Card, 3305
-    Trick or Treat Card, 3326
+    Trick or Treat Card, 3326 {
+        scatterer.scatters = Trick or Treat
+    }
     Frankenstein Card, 3330
     Mummy Card, 3331
     Vampire Card, 3332
