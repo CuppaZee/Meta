@@ -87,3 +87,9 @@ Year2021Scatter {
     Treat
     Trick
 ]
+
+Scatter {
+    name = Trick or Treat
+    standalone
+    hidden + Capture
+}
