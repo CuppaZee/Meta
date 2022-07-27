@@ -1,5 +1,9 @@
-template Bouncer from Base {
+global template Bouncer from Base {
     tags + Bouncer
     hidden + Inventory
     state = Bouncer
+}
+global template BouncerHost from Base {
+    tags + BouncerHost
+    hidden + Inventory, Deploy
 }

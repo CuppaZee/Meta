@@ -7,8 +7,11 @@ import { amethyst } from "../../normal/jewels";
 import { greenie, shamrock } from "../../normal/misc";
 import {
   airMystery,
-  earthMystery, fireMystery,
-  iceMystery, voidMystery, waterMystery
+  earthMystery,
+  fireMystery,
+  iceMystery,
+  voidMystery,
+  waterMystery,
 } from "../../normal/mystery";
 import { battleAxe, longsword, mace, theHammer } from "../../normal/weapons";
 import { rabbitChineseZodiac } from "../../normal/zodiacs";
@@ -135,7 +138,15 @@ export const monsterYeti = new OriginalMythType("Monster Yeti", 3368).addTag(
 );
 export const whiteRabbitYeti = new OriginalMythType("White Rabbit", 3905)
   .addTag(TypeTags.BouncerMythVariant)
-  .addBouncerLandsOn(greenie, rabbitChineseZodiac, goldenCarrot, carrotEvos, voidMystery, treehouse, skyland);
+  .addBouncerLandsOn(
+    greenie,
+    rabbitChineseZodiac,
+    goldenCarrot,
+    carrotEvos,
+    voidMystery,
+    treehouse,
+    skyland
+  );
 export const yetiHost = new OriginalMythHostType("Yeti Host", 726)
   .physical()
   .addBouncerLandsOn(yeti, lycanthropeYeti, reptoidYeti, monsterYeti, whiteRabbitYeti);

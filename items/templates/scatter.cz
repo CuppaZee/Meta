@@ -1,4 +1,4 @@
-template Scatter from Base {
+global template Scatter from Base {
     tags + Scatter
     hidden + Inventory, Deploy
 }

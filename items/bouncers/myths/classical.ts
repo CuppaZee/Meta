@@ -65,9 +65,8 @@ export const farDarrigFaun = new ClassicalMythType("Far Darrig Faun", 3656).addT
 );
 export const kingOfHeartsFaun = new ClassicalMythType("King of Hearts Faun", 3907)
   .addTag(TypeTags.BouncerMythVariant)
-  .addBouncerLandsOn(
-    greenie, earthMystery, theHammer, treehouse, skyland,
-    type => type.hasTags(TypeTags.VirtualColourRed),
+  .addBouncerLandsOn(greenie, earthMystery, theHammer, treehouse, skyland, type =>
+    type.hasTags(TypeTags.VirtualColourRed)
   );
 export const faunHost = new ClassicalMythHostType("Faun Host", 854)
   .physical()

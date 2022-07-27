@@ -176,7 +176,7 @@ Event {
     Munzee Turns 5 Sydney 2016, 631
     WNY Birthday Gathering, 632
     Adelaide 5th Birthday Event, 633
-    (NC)Drive 95, 634
+    \(NC)Drive 95, 634
     Halberstadt M5, 635
     Madison\, WI 2016, 636
     Pinellas FAT CAT Birthday Bash, 637
@@ -207,7 +207,9 @@ Event {
     Jibby! Breakfast Jibby! - JibbyFest 2016 Date: 20, 675
     Lincoln's 1st Event, 676
     Deutschland feiert, 677
-    Gothenburg: Göta Explosion 2016, 683
+    Gothenburg: Göta Explosion 2016, 683 {
+        icons = gothenburg:götaexplosion2016, gothenburg:götaexplosion2016
+    }
     A Munzee GEM Event, 688
     Snail Lake Park ~ Fall Into Munzee!, 689
     Greer Munzee Hunt, 690

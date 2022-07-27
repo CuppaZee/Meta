@@ -12,40 +12,19 @@ template MechScatter from Scatter {
     standalone
 }
 
-template MechWithoutBroken {
-    MechBouncer {
-        name = $name
-        id = $id
-    }
-    MechScatter {
-        name = $scatterName
-        id = $scatterId
-    }
-}
-
-template MechWithoutScatter {
-    MechBouncer {
-        name = $name
-        id = $id
-    }
-    BrokenMechBouncer {
-        name = $brokenName
-        id = $brokenId
-    }
-}
-
 template Mech {
-    MechWithoutScatter {
+    MechBouncer {
         name = $name
         id = $id
-        brokenName = $brokenName
-        brokenId = $(brokenId || id + 1)
-        scatters + $scatterName
     }
     MechScatter {
         name = $scatterName
         id = $(scatterId || id + 2)
-    }
+    } if scatterName
+    BrokenMechBouncer {
+        name = $brokenName
+        id = $(brokenId || id + 1)
+    } if brokenName
 }
 
 Mech {
@@ -55,16 +34,18 @@ Mech {
     scatterName = Floating Head
 }
 
-MechWithoutBroken {
+Mech {
     name = C4T3RP1LL4R
     id = 3909
     scatterName = Sm0ke Message
     scatterId = 3912
 }
 
-MechWithoutBroken {
+Mech {
     name = Butt3rFry
     id = 3910
+    brokenId = 3911
+    brokenName = Hibernating Butt3rFry
     scatterName = Sm0ke Song
     scatterId = 3913
 }

@@ -1,0 +1,53 @@
+Group {
+    name = Storyland Myths
+    parents + Mythicals
+}
+
+template StorylandMyth {
+    Bouncer {
+        name = $name
+        id = $id
+        tags + BouncerMyth, BouncerMythStoryland
+        bouncer {
+            lands_on = $lands_on
+        }
+        scatterer {
+            scatters = $scatter.name
+        }
+    }
+    Scatter {
+        name = $scatter.name
+        id = $((scatter.id || id + 1))
+        standalone
+    }
+}
+
+StorylandMyth {
+    name = Jabberwock
+    id = 3917
+    lands_on = (
+        Fire Mystery
+        Earth Mystery
+        Battle Axe
+        Longsword
+        Crossbow
+        Catapult
+        Shield
+        Skyland
+    )
+    scatter.name = Vorpal Sword
+}
+
+BouncerHost {
+    name = Storyland Host
+    id = 3919
+    tags + BouncerHostMyth, BouncerHostMythStoryland
+    state = Physical
+}
+BouncerHost {
+    name = Storyland Virtual Host
+    id = 3920
+    tags + BouncerHostMyth, BouncerHostMythStoryland
+    icons = storyland_virtual_host, storylandvirtualhost
+    state = Virtual
+}
